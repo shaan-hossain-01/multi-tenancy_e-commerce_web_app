@@ -1,15 +1,8 @@
-import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
 import {
   Sheet,
-  SheetClose,
   SheetContent,
-  SheetDescription,
-  SheetFooter,
   SheetHeader,
   SheetTitle,
-  SheetTrigger,
 } from "@/components/ui/sheet"
 import { ScrollArea } from "@/components/ui/scroll-area"
 import Link from "next/link"
@@ -31,18 +24,23 @@ const NavbarSidebar = ({ items, open, onOpenChange }: Props) => {
       <SheetContent side="left"
         className="p-0 transition-none">
         <SheetHeader className="p-4 border-b">
-          <div className="flex items-center">
-            <SheetTitle>
-              Menu
-            </SheetTitle>
-          </div>
+          <SheetTitle>
+            Menu
+          </SheetTitle>
         </SheetHeader>
         <ScrollArea className="flex flex-col overflow-y-auto h-full pb-2">
-          {items.map((item) => {
-            <Link key={item.href} href={item.href}
+          {items.map((item) => (
+            <Link key={item.href} href={item.href} onClick={() => onOpenChange(false)}
               className="w-full text-left p-4 hover:bg-black hover:text-white flex items-center text-base font-medium"
             >{item.children}</Link>
-          })}
+          ))}
+
+          <div className="border-t">
+            <Link href='/sign-in' onClick={() => onOpenChange(false)}
+              className="w-full text-left p-4 hover:text-white hover:bg-black flex items-center text-base font-medium">Log In</Link>
+            <Link href="/sign-up" onClick={() => onOpenChange(false)}
+              className="w-full text-left p-4 hover:text-white hover:bg-black flex items-center text-base font-medium">Start Selling</Link>
+          </div>
         </ScrollArea>
       </SheetContent>
     </Sheet>
