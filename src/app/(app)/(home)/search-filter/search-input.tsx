@@ -9,8 +9,12 @@ const SearchInput = ({ disabled }: Props) => {
   return (
     <div className="flex items-center gap-2 w-full">
         <div className="relative w-full">
-            <SearchIcon />
-            <Input disabled={disabled} />
+            <SearchIcon className="absolute left-3 top-1/2 -translate-y-1/2 size-4 text-neutral-500"/>
+            <Input disabled={disabled} placeholder="Search Products" className="pl-8"/>
+        </div>
+        <div>
+          {/* TODO: Add categories view all buttons */}
+          {/* TODO: Add library button */}
         </div>
     </div>
   )
