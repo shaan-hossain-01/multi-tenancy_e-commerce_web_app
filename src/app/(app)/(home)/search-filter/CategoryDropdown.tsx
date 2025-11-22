@@ -1,6 +1,9 @@
+"use client";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { Category } from "@payload-types";
+import { useRef, useState } from "react";
+import { useDropdownPosition } from "./useDropdownPosition";
 
 interface CategoryDropdownProps {
   category: Category;
@@ -9,10 +12,37 @@ interface CategoryDropdownProps {
 }
 
 const CategoryDropdown = ({ category, isActive, isNavigationHovered }: CategoryDropdownProps) => {
+  const [isOpen, setIsOpen] = useState(false);
+  const dropdownRef = useRef<HTMLDivElement>(null);
+  const {getDropdownPosition}= useDropdownPosition(dropdownRef);
+  const onMouseEnter = ()=>{
+    if(category.subcategories){
+      setIsOpen(true);
+    }
+  }
+
+  const onMouseLeave = ()=>{
+    setIsOpen(false);
+  }
+
   return (
-    <Button variant="elevated" className={cn("h-11 px-4 bg-transparent border-transparent hover:bg-white hover:border-primary text-black rounded-full")}>
+    <div
+      className="relative"
+      onMouseEnter={onMouseEnter}
+      onMouseLeave={onMouseLeave}
+      ref={dropdownRef}
+    >
+      <div className="relative">
+    <Button variant="elevated" className={cn("h-11 px-4 bg-transparent border-transparent hover:bg-white hover:border-primary text-black rounded-full",
+      isActive && !isNavigationHovered && "bg-white border-primary",
+    )}>
         {category.name}
     </Button>
+    <div 
+      className={cn("opacity-0 absolute -bottom-3 w-0 h-0 border-l-[10px] border-l-transparent border-r-[10px] border-r-transparent border-b-[10px] border-b-black -translate-x-1/2", isOpen && "opacity-100",)}
+    />
+      </div>
+    </div>
   )
 }
 
