@@ -4,6 +4,7 @@ import { cn } from "@/lib/utils";
 import { Category } from "@payload-types";
 import { useRef, useState } from "react";
 import { useDropdownPosition } from "./useDropdownPosition";
+import SubcategoryMenu from "./SubcategoryMenu";
 
 interface CategoryDropdownProps {
   category: Category;
@@ -25,6 +26,8 @@ const CategoryDropdown = ({ category, isActive, isNavigationHovered }: CategoryD
     setIsOpen(false);
   }
 
+  const dropdownPosition = getDropdownPosition();
+
   return (
     <div
       className="relative"
@@ -39,9 +42,14 @@ const CategoryDropdown = ({ category, isActive, isNavigationHovered }: CategoryD
         {category.name}
     </Button>
     <div 
-      className={cn("opacity-0 absolute -bottom-3 w-0 h-0 border-l-[10px] border-l-transparent border-r-[10px] border-r-transparent border-b-[10px] border-b-black -translate-x-1/2", isOpen && "opacity-100",)}
+      className={cn("opacity-0 absolute -bottom-3 w-0 h-0 border-l-10 border-l-transparent border-r-10 border-r-transparent border-b-10 border-b-black -translate-x-1/2", isOpen && "opacity-100",)}
     />
       </div>
+      <SubcategoryMenu
+        category={category}
+        isOpen={isOpen}
+        position={dropdownPosition}
+      />
     </div>
   )
 }

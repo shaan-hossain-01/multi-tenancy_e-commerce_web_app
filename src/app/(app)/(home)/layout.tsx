@@ -33,7 +33,6 @@ const Layout = async ({ children }: Props) => {
       ...(doc as Category),
   }))}));
 
-  console.log('Formatted Data:', formattedData);
   return (
     <div className="flex flex-col min-h-screen">
       <Navbar />
